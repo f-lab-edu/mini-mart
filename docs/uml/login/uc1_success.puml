@@ -1,0 +1,28 @@
+@startuml
+actor "고객" as Customer
+
+rectangle "로그인 요청 처리 성공" {
+  usecase "이메일 및 비밀번호 입력 성공" as UC1_1_success
+  note right
+  이메일 및 비밀번호 입력 성공:
+  - 이메일 형식이 올바름
+  - 비밀번호가 입력됨
+  end note
+
+  usecase "사용자 정보 조회 성공" as UC1_2_success
+  note right
+  사용자 정보 조회 성공:
+  - 사용자가 데이터베이스에 존재함
+  end note
+
+  usecase "비밀번호 비교 및 검증 성공" as UC1_3_success
+  note right
+  비밀번호 비교 및 검증 성공:
+  - 입력한 비밀번호가 일치함
+  end note
+}
+
+Customer --> UC1_1_success
+Customer --> UC1_2_success
+Customer --> UC1_3_success
+@enduml

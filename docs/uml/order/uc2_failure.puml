@@ -1,0 +1,22 @@
+@startuml
+actor "고객" as Customer
+
+rectangle "주문 상태 변경 실패" {
+  usecase "주문 상태 업데이트 실패" as UC2_1_failure
+  note right
+  주문 상태 업데이트 실패:
+  - 유효하지 않은 상태 요청
+  - 내부 서버 오류
+  end note
+
+  usecase "주문 상태 알림 발송 실패" as UC2_2_failure
+  note right
+  주문 상태 알림 발송 실패:
+  - 알림 전송 중 네트워크 오류 발생
+  - 사용자 알림 미발송
+  end note
+}
+
+Customer --> UC2_1_failure
+Customer --> UC2_2_failure
+@enduml

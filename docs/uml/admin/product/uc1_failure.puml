@@ -1,0 +1,13 @@
+@startuml
+actor "관리자" as Admin
+
+rectangle "상품 등록 실패" {
+  usecase "상품 등록 실패" as UC2_1_failure
+  note right
+  - 유효하지 않은 데이터 입력
+  - 이미지 업로드 실패
+  end note
+}
+
+Admin --> UC2_1_failure
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+actor "고객" as Customer
+
+rectangle "회원 탈퇴 실패" {
+  usecase "탈퇴 요청 실패" as UC3_1_failure
+  note right
+  탈퇴 요청 실패
+  - 입력 오류
+  - 요청 저장 실패
+  end note
+
+  usecase "탈퇴 처리 실패" as UC3_2_failure
+  note right
+  탈퇴 처리 실패
+  - 데이터 보관 정책 위반
+  - 처리 중 오류 발생
+  end note
+}
+
+Customer --> UC3_1_failure
+Customer --> UC3_2_failure
+@enduml

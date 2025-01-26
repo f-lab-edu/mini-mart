@@ -1,0 +1,13 @@
+@startuml
+actor "관리자" as Admin
+
+rectangle "상품 수정 성공" {
+  usecase "상품 수정 성공" as UC2_2_success
+  note right
+  - 기존 상품 데이터 수정 완료
+  - 변경된 옵션 및 가격 반영
+  end note
+}
+
+Admin --> UC2_2_success
+@enduml

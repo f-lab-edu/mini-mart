@@ -1,0 +1,13 @@
+@startuml
+actor "관리자" as Admin
+
+rectangle "카테고리 삭제 성공" {
+  usecase "카테고리 삭제 성공" as UC3_3_success
+  note right
+  - 삭제 요청 완료
+  - 하위 상품은 기타 카테고리로 이동
+  end note
+}
+
+Admin --> UC3_3_success
+@enduml

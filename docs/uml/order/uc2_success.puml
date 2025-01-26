@@ -1,0 +1,21 @@
+@startuml
+actor "고객" as Customer
+
+rectangle "주문 상태 변경 성공" {
+  usecase "주문 상태 업데이트 성공" as UC2_1_success
+  note right
+  주문 상태 업데이트 성공:
+  - 주문 상태 변경 완료
+  - 예: PENDING → CONFIRMED, SHIPPED → DELIVERED
+  end note
+
+  usecase "주문 상태 알림 발송 성공" as UC2_2_success
+  note right
+  주문 상태 알림 발송 성공:
+  - 상태 변경에 따른 사용자 알림 발송 완료
+  end note
+}
+
+Customer --> UC2_1_success
+Customer --> UC2_2_success
+@enduml

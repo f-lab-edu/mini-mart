@@ -1,0 +1,22 @@
+@startuml
+actor "고객" as Customer
+
+rectangle "비밀번호 찾기 실패" {
+  usecase "이메일 인증 실패" as UC3_1_failure
+  note right
+  이메일 인증 실패:
+  - 인증 코드 입력 오류
+  - 인증 시간 초과
+  end note
+
+  usecase "비밀번호 재설정 실패" as UC3_2_failure
+  note right
+  비밀번호 재설정 실패:
+  - 비밀번호 규칙 미충족
+  - 저장 오류 발생
+  end note
+}
+
+Customer --> UC3_1_failure
+Customer --> UC3_2_failure
+@enduml
