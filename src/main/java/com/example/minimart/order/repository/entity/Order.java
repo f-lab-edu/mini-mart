@@ -41,13 +41,11 @@ public class Order {
     public Order(
         Long customerId,
         BigDecimal totalPrice,
-        OrderStatus status,
-        List<OrderItem> items
+        OrderStatus status
     ) {
         validateCustomerId(customerId);
         validateTotalPrice(totalPrice);
         validateOrderStatus(status);
-        validateOrderItems(items);
 
         this.customerId = customerId;
         this.totalPrice = totalPrice;
