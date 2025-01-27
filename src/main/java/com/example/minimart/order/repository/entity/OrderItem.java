@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -35,6 +36,12 @@ public class OrderItem {
     @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal totalPrice;
 
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
+
     @Column(nullable = false)
     private boolean deleted = false;
 
@@ -62,6 +69,17 @@ public class OrderItem {
         this.unitPrice = unitPrice;
         this.quantity = quantity;
         this.totalPrice = calculateTotalPrice();
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
     }
 
     public BigDecimal calculateTotalPrice() {
