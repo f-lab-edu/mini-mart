@@ -1,4 +1,4 @@
-package com.example.minimart.order.repository.entity;
+package com.example.minimart.order.infra.entity;
 
 public enum OrderStatus {
 

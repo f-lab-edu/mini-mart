@@ -2,10 +2,10 @@ package com.example.minimart.order.service;
 
 import com.example.minimart.order.controller.dto.request.CreateOrderItemRequest;
 import com.example.minimart.order.controller.dto.request.CreateOrderRequest;
-import com.example.minimart.order.repository.OrderItemJpaRepository;
-import com.example.minimart.order.repository.OrderJpaRepository;
-import com.example.minimart.order.repository.entity.Order;
-import com.example.minimart.order.repository.entity.OrderStatus;
+import com.example.minimart.order.infra.OrderItemJpaRepository;
+import com.example.minimart.order.infra.OrderJpaRepository;
+import com.example.minimart.order.infra.entity.Order;
+import com.example.minimart.order.infra.entity.OrderStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

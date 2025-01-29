@@ -1,7 +1,7 @@
 package com.example.minimart.order.controller;
 
 import com.example.minimart.order.controller.dto.request.CreateOrderRequest;
-import com.example.minimart.order.repository.entity.Order;
+import com.example.minimart.order.infra.entity.Order;
 import com.example.minimart.order.service.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
