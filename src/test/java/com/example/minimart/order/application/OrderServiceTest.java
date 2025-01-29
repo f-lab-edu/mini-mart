@@ -1,4 +1,4 @@
-package com.example.minimart.order.service;
+package com.example.minimart.order.application;
 
 import com.example.minimart.order.controller.dto.request.CreateOrderItemRequest;
 import com.example.minimart.order.controller.dto.request.CreateOrderRequest;

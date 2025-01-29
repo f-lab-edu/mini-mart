@@ -1,4 +1,4 @@
-package com.example.minimart.order.service;
+package com.example.minimart.order.application;
 
 import com.example.minimart.order.controller.dto.request.CreateOrderRequest;
 import com.example.minimart.order.infra.OrderItemJpaRepository;
