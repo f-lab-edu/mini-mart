@@ -1,7 +1,7 @@
 package com.example.minimart.order.application;
 
-import com.example.minimart.order.controller.dto.request.CreateOrderItemRequest;
-import com.example.minimart.order.controller.dto.request.CreateOrderRequest;
+import com.example.minimart.api.order.dto.request.CreateOrderItemRequest;
+import com.example.minimart.api.order.dto.request.CreateOrderRequest;
 import com.example.minimart.order.domain.Order;
 import com.example.minimart.order.domain.OrderItem;
 import com.example.minimart.order.domain.OrderRepository;

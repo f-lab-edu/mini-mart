@@ -1,7 +1,7 @@
-package com.example.minimart.order.controller;
+package com.example.minimart.api.order;
 
+import com.example.minimart.api.order.dto.request.CreateOrderRequest;
 import com.example.minimart.order.application.OrderService;
-import com.example.minimart.order.controller.dto.request.CreateOrderRequest;
 import com.example.minimart.order.domain.Order;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

@@ -1,4 +1,4 @@
-package com.example.minimart.order.controller.dto.request;
+package com.example.minimart.api.order.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
