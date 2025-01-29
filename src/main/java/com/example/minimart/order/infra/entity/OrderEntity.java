@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Table(name = "orders")
 @Entity
-public class Order {
+public class OrderEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,10 +35,10 @@ public class Order {
     @Column(nullable = false)
     private boolean deleted = false;
 
-    protected Order() {
+    protected OrderEntity() {
     }
 
-    public Order(
+    public OrderEntity(
         Long customerId,
         BigDecimal totalPrice,
         OrderStatus status
@@ -63,7 +63,7 @@ public class Order {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public void assignOrderIdToItems(Long orderId, List<OrderItem> items) {
+    public void assignOrderIdToItems(Long orderId, List<OrderItemEntity> items) {
         Assert.notNull(orderId, "Order ID는 null일 수 없습니다.");
         Assert.notEmpty(items, "OrderItem 리스트는 비어 있을 수 없습니다.");
 
@@ -80,7 +80,7 @@ public class Order {
         Assert.isTrue(totalPrice.compareTo(BigDecimal.ZERO) >= 0, "총 가격은 0보다 작을 수 없습니다.");
     }
 
-    private void validateOrderItems(List<OrderItem> items) {
+    private void validateOrderItems(List<OrderItemEntity> items) {
         Assert.notNull(items, "주문 항목은 null일 수 없습니다.");
         Assert.notEmpty(items, "주문 항목은 비어 있을 수 없습니다.");
     }
@@ -117,7 +117,7 @@ public class Order {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Order order = (Order) o;
+        OrderEntity order = (OrderEntity) o;
         return Objects.equals(id, order.id);
     }
 

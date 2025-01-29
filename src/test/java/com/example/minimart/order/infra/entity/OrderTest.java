@@ -16,7 +16,7 @@ class OrderTest {
 
         // when
         // then
-        assertThrows(IllegalArgumentException.class, () -> new Order(1L, BigDecimal.valueOf(-10), OrderStatus.PENDING));
+        assertThrows(IllegalArgumentException.class, () -> new OrderEntity(1L, BigDecimal.valueOf(-10), OrderStatus.PENDING));
     }
 
     @Test
@@ -26,7 +26,7 @@ class OrderTest {
 
         // when
         // then
-        assertThrows(IllegalArgumentException.class, () -> new Order(1L, BigDecimal.TEN, null));
+        assertThrows(IllegalArgumentException.class, () -> new OrderEntity(1L, BigDecimal.TEN, null));
     }
 
 }

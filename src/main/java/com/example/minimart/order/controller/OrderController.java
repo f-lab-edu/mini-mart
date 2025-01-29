@@ -1,7 +1,7 @@
 package com.example.minimart.order.controller;
 
 import com.example.minimart.order.controller.dto.request.CreateOrderRequest;
-import com.example.minimart.order.infra.entity.Order;
+import com.example.minimart.order.infra.entity.OrderEntity;
 import com.example.minimart.order.service.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -23,7 +23,7 @@ public class OrderController {
 
     @GetMapping("/{id}")
     @Operation(summary = "주문 조회", description = "주문 ID를 사용하여 특정 주문을 조회합니다.")
-    public Order getOrder(
+    public OrderEntity getOrder(
         @PathVariable
         @Parameter(description = "주문 ID", example = "1", required = true)
         Long id
@@ -39,7 +39,7 @@ public class OrderController {
 
     @GetMapping
     @Operation(summary = "주문 목록 조회", description = "전체 주문 목록을 조회합니다.")
-    public List<Order> listOrders() {
+    public List<OrderEntity> listOrders() {
         return orderService.listOrders();
     }
 

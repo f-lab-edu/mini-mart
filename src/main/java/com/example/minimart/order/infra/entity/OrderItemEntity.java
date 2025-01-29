@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "order_items")
-public class OrderItem {
+public class OrderItemEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,10 +45,10 @@ public class OrderItem {
     @Column(nullable = false)
     private boolean deleted = false;
 
-    protected OrderItem() {
+    protected OrderItemEntity() {
     }
 
-    public OrderItem(
+    public OrderItemEntity(
         Long orderId,
         Long productId,
         String productName,
@@ -151,7 +151,7 @@ public class OrderItem {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OrderItem orderItem = (OrderItem) o;
+        OrderItemEntity orderItem = (OrderItemEntity) o;
         return Objects.equals(id, orderItem.id);
     }
 

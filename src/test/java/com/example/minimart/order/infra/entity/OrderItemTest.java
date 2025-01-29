@@ -22,7 +22,7 @@ class OrderItemTest {
         int quantity = 3;
 
         // when
-        OrderItem orderItem = new OrderItem(orderId, productId, productName, productOption, unitPrice, quantity);
+        OrderItemEntity orderItem = new OrderItemEntity(orderId, productId, productName, productOption, unitPrice, quantity);
 
         // then
         assertEquals(BigDecimal.valueOf(301.50), orderItem.getTotalPrice());
@@ -42,7 +42,7 @@ class OrderItemTest {
 
         // when
         // then
-        assertThrows(IllegalArgumentException.class, () -> new OrderItem(orderId, productId, productName, productOption, unitPrice, quantity));
+        assertThrows(IllegalArgumentException.class, () -> new OrderItemEntity(orderId, productId, productName, productOption, unitPrice, quantity));
     }
 
     @Test
@@ -57,15 +57,15 @@ class OrderItemTest {
 
         // when
         // then
-        assertThrows(IllegalArgumentException.class, () -> new OrderItem(orderId, productId, productName, productOption, unitPrice, 0));
-        assertThrows(IllegalArgumentException.class, () -> new OrderItem(orderId, productId, productName, productOption, unitPrice, -1));
+        assertThrows(IllegalArgumentException.class, () -> new OrderItemEntity(orderId, productId, productName, productOption, unitPrice, 0));
+        assertThrows(IllegalArgumentException.class, () -> new OrderItemEntity(orderId, productId, productName, productOption, unitPrice, -1));
     }
 
     @Test
     @DisplayName("calculateTotalPrice 메서드가 정확한 값을 반환")
     void calculateTotalPriceReturnsCorrectValue() {
         // given
-        OrderItem orderItem = new OrderItem(1L, 1L, "Product A", "Option A", BigDecimal.valueOf(99.99), 5);
+        OrderItemEntity orderItem = new OrderItemEntity(1L, 1L, "Product A", "Option A", BigDecimal.valueOf(99.99), 5);
 
         // when
         BigDecimal totalPrice = orderItem.calculateTotalPrice();
@@ -78,7 +78,7 @@ class OrderItemTest {
     @DisplayName("assignToOrder 메서드를 사용하여 유효한 orderId를 설정")
     void assignToOrderWithValidOrderId() {
         // given
-        OrderItem orderItem = new OrderItem(1L, 1L, "Product A", "Option A", BigDecimal.TEN, 2);
+        OrderItemEntity orderItem = new OrderItemEntity(1L, 1L, "Product A", "Option A", BigDecimal.TEN, 2);
         Long orderId = 123L;
 
         // when
@@ -92,7 +92,7 @@ class OrderItemTest {
     @DisplayName("assignToOrder 메서드 호출 시 orderId가 null이면 IllegalArgumentException 발생")
     void assignToOrderWithNullOrderIdThrowsException() {
         // given
-        OrderItem orderItem = new OrderItem(1L, 1L, "Product A", "Option A", BigDecimal.TEN, 2);
+        OrderItemEntity orderItem = new OrderItemEntity(1L, 1L, "Product A", "Option A", BigDecimal.TEN, 2);
 
         // when
         // then
@@ -103,7 +103,7 @@ class OrderItemTest {
     @DisplayName("assignToOrder 메서드로 이미 설정된 orderId를 재설정")
     void reassignToOrderWithNewOrderId() {
         // given
-        OrderItem orderItem = new OrderItem(1L, 1L, "Product A", "Option A", BigDecimal.TEN, 2);
+        OrderItemEntity orderItem = new OrderItemEntity(1L, 1L, "Product A", "Option A", BigDecimal.TEN, 2);
         Long initialOrderId = 123L;
         Long newOrderId = 456L;
 

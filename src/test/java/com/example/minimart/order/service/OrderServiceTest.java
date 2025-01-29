@@ -4,7 +4,7 @@ import com.example.minimart.order.controller.dto.request.CreateOrderItemRequest;
 import com.example.minimart.order.controller.dto.request.CreateOrderRequest;
 import com.example.minimart.order.infra.OrderItemJpaRepository;
 import com.example.minimart.order.infra.OrderJpaRepository;
-import com.example.minimart.order.infra.entity.Order;
+import com.example.minimart.order.infra.entity.OrderEntity;
 import com.example.minimart.order.infra.entity.OrderStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -51,11 +51,11 @@ class OrderServiceTest {
     void getOrderReturnsOrderIfExists() {
         // given
         Long orderId = 1L;
-        Order expectedOrder = new Order(1L, BigDecimal.valueOf(100), OrderStatus.PENDING);
+        OrderEntity expectedOrder = new OrderEntity(1L, BigDecimal.valueOf(100), OrderStatus.PENDING);
         when(orderJpaRepository.findById(orderId)).thenReturn(Optional.of(expectedOrder));
 
         // when
-        Order order = orderService.getOrder(orderId);
+        OrderEntity order = orderService.getOrder(orderId);
 
         // then
         assertEquals(expectedOrder, order);
@@ -87,14 +87,14 @@ class OrderServiceTest {
         );
         CreateOrderRequest request = new CreateOrderRequest(1L, BigDecimal.valueOf(100), orderItems);
 
-        Order mockSavedOrder = new Order(1L, BigDecimal.valueOf(100), OrderStatus.PENDING);
-        when(orderJpaRepository.save(any(Order.class))).thenReturn(mockSavedOrder);
+        OrderEntity mockSavedOrder = new OrderEntity(1L, BigDecimal.valueOf(100), OrderStatus.PENDING);
+        when(orderJpaRepository.save(any(OrderEntity.class))).thenReturn(mockSavedOrder);
 
         // when
         orderService.createOrder(request);
 
         // then
-        verify(orderJpaRepository, times(1)).save(any(Order.class));
+        verify(orderJpaRepository, times(1)).save(any(OrderEntity.class));
         verify(orderItemJpaRepository, times(1)).saveAll(anyList());
     }
 
@@ -105,7 +105,7 @@ class OrderServiceTest {
         when(orderJpaRepository.findAll()).thenReturn(Collections.emptyList());
 
         // when
-        List<Order> orders = orderService.listOrders();
+        List<OrderEntity> orders = orderService.listOrders();
 
         // then
         assertTrue(orders.isEmpty());
@@ -116,14 +116,14 @@ class OrderServiceTest {
     @DisplayName("주문 목록 조회 시 모든 주문 반환")
     void listOrdersReturnsAllOrders() {
         // given
-        List<Order> expectedOrders = List.of(
-            new Order(1L, BigDecimal.valueOf(100), OrderStatus.PENDING),
-            new Order(2L, BigDecimal.valueOf(200), OrderStatus.CONFIRMED)
+        List<OrderEntity> expectedOrders = List.of(
+            new OrderEntity(1L, BigDecimal.valueOf(100), OrderStatus.PENDING),
+            new OrderEntity(2L, BigDecimal.valueOf(200), OrderStatus.CONFIRMED)
         );
         when(orderJpaRepository.findAll()).thenReturn(expectedOrders);
 
         // when
-        List<Order> actualOrders = orderService.listOrders();
+        List<OrderEntity> actualOrders = orderService.listOrders();
 
         // then
         assertEquals(expectedOrders, actualOrders);
