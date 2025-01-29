@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -35,6 +36,12 @@ public class OrderItem {
     @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal totalPrice;
 
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
+
     @Column(nullable = false)
     private boolean deleted = false;
 
@@ -42,23 +49,37 @@ public class OrderItem {
     }
 
     public OrderItem(
+        Long orderId,
         Long productId,
         String productName,
         String productOption,
         BigDecimal unitPrice,
         int quantity
     ) {
+        validateOrderId(productId);
         validateProductId(productId);
         validateProductName(productName);
         validateUnitPrice(unitPrice);
         validateQuantity(quantity);
 
+        this.orderId = orderId;
         this.productId = productId;
         this.productName = productName;
         this.productOption = productOption;
         this.unitPrice = unitPrice;
         this.quantity = quantity;
         this.totalPrice = calculateTotalPrice();
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
     }
 
     public BigDecimal calculateTotalPrice() {
@@ -69,6 +90,11 @@ public class OrderItem {
         Assert.notNull(orderId, "Order ID는 null일 수 없습니다.");
 
         this.orderId = orderId;
+    }
+
+    private void validateOrderId(Long orderId) {
+        Assert.notNull(orderId, "주문 ID는 null일 수 없습니다.");
+        Assert.isTrue(orderId > 0, "주문 ID는 0보다 커야 합니다.");
     }
 
     private void validateProductId(Long productId) {
