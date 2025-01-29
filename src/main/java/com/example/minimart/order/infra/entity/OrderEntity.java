@@ -41,6 +41,13 @@
             this.status = status;
         }
 
+        public OrderEntity(Long id, Long customerId, BigDecimal totalPrice, OrderStatus status) {
+            this.id = id;
+            this.customerId = customerId;
+            this.totalPrice = totalPrice;
+            this.status = status;
+        }
+
         @PrePersist
         protected void onCreate() {
             this.createdAt = LocalDateTime.now();

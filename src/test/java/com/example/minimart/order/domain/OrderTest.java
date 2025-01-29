@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,7 +19,7 @@ class OrderTest {
         BigDecimal totalPrice = BigDecimal.valueOf(100.00);
 
         // when
-        Order order = Order.create(customerId, totalPrice);
+        Order order = Order.create(customerId, totalPrice, Collections.emptyList());
 
         // then
         assertNull(order.getId());
@@ -33,7 +34,7 @@ class OrderTest {
     @DisplayName("changeStatus() 메서드는 주문 상태를 변경해야 한다")
     void changeOrderStatus() {
         // given
-        Order order = Order.create(1L, BigDecimal.valueOf(200.00));
+        Order order = Order.create(1L, BigDecimal.valueOf(200.00), Collections.emptyList());
 
         // when
         order.changeStatus(OrderStatus.CONFIRMED);
@@ -46,7 +47,7 @@ class OrderTest {
     @DisplayName("updateTotalPrice() 메서드는 총 가격을 변경해야 한다")
     void updateOrderTotalPrice() {
         // given
-        Order order = Order.create(1L, BigDecimal.valueOf(150.00));
+        Order order = Order.create(1L, BigDecimal.valueOf(150.00), Collections.emptyList());
 
         // when
         BigDecimal newPrice = BigDecimal.valueOf(180.00);

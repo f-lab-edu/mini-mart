@@ -4,6 +4,7 @@ import com.example.minimart.order.infra.entity.OrderStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 public class Order {
@@ -14,24 +15,27 @@ public class Order {
     private OrderStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private List<OrderItem> orderItems;
 
     public Order(
         Long id,
         Long customerId,
         BigDecimal totalPrice,
         OrderStatus status,
-        LocalDateTime createdAt
+        LocalDateTime createdAt,
+        List<OrderItem> orderItems
     ) {
         this.id = id;
         this.customerId = customerId;
         this.totalPrice = totalPrice;
         this.status = status;
         this.createdAt = createdAt;
+        this.orderItems = orderItems;
         this.updatedAt = LocalDateTime.now();
     }
 
-    public static Order create(Long customerId, BigDecimal totalPrice) {
-        return new Order(null, customerId, totalPrice, OrderStatus.PENDING, LocalDateTime.now());
+    public static Order create(Long customerId, BigDecimal totalPrice, List<OrderItem> orderItems) {
+        return new Order(null, customerId, totalPrice, OrderStatus.PENDING, LocalDateTime.now(), orderItems);
     }
 
     public void changeStatus(OrderStatus newStatus) {
@@ -68,6 +72,10 @@ public class Order {
         return updatedAt;
     }
 
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -91,6 +99,7 @@ public class Order {
             ", status=" + status +
             ", createdAt=" + createdAt +
             ", updatedAt=" + updatedAt +
+            ", orderItems=" + orderItems +
             '}';
     }
 
