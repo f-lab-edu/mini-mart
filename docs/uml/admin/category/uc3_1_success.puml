@@ -2,7 +2,7 @@
 actor "관리자" as Admin
 
 rectangle "카테고리 추가 성공" {
-  usecase "카테고리 추가 성공" as UC3_1_success
+  usecase "<UC3_1_success> 카테고리 추가 성공" as UC3_1_success
   note right
   - 새로운 카테고리 저장 완료
   - 중복 없는 이름 확인

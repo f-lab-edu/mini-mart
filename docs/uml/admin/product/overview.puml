@@ -2,21 +2,21 @@
 actor "관리자" as Admin
 
 rectangle "상품 관리" {
-  usecase "상품 등록" as UC2_1
+  usecase "<UC2_1> 상품 등록" as UC2_1
   note right of UC2_1
   상품 등록:
   - 새로운 상품 데이터 입력 및 저장
   - 성공 및 실패 케이스
   end note
 
-  usecase "상품 수정" as UC2_2
+  usecase "<UC2_2> 상품 수정" as UC2_2
   note right of UC2_2
   상품 수정:
   - 기존 상품 정보 수정
   - 성공 및 실패 케이스
   end note
 
-  usecase "상품 삭제" as UC2_3
+  usecase "<UC2_3> 상품 삭제" as UC2_3
   note right of UC2_3
   상품 삭제:
   - 특정 상품 삭제 요청 처리

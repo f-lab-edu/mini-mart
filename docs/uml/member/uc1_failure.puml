@@ -2,7 +2,7 @@
 actor "고객" as Customer
 
 rectangle "회원 가입 실패" {
-  usecase "계정 정보 등록 실패" as UC1_1_failure
+  usecase "<UC1_1_failure> 계정 정보 등록 실패" as UC1_1_failure
   note right
   계정 정보 등록 실패
   - 이름, 주소, 연락처 누락
@@ -10,14 +10,14 @@ rectangle "회원 가입 실패" {
   - 입력 값 유효성 실패
   end note
 
-  usecase "이메일 인증 실패" as UC1_2_failure
+  usecase "<UC1_2_failure> 이메일 인증 실패" as UC1_2_failure
   note right
   이메일 인증 실패
   - 인증 코드 입력 오류
   - 인증 시간 초과
   end note
 
-  usecase "비밀번호 생성 실패" as UC1_3_failure
+  usecase "<UC1_3_failure> 비밀번호 생성 실패" as UC1_3_failure
   note right
   비밀번호 생성 실패
   - 복잡도 규칙 미충족

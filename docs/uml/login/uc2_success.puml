@@ -2,7 +2,7 @@
 actor "고객" as Customer
 
 rectangle "로그인 성공" {
-  usecase "세션 생성 또는 JWT 발급 성공" as UC2_1_success
+  usecase "<UC2_1_success> 세션 생성 또는 JWT 발급 성공" as UC2_1_success
   note right
   세션 생성 또는 JWT 발급 성공:
   - 인증된 세션 또는 JWT 반환

@@ -2,14 +2,14 @@
 actor "고객" as Customer
 
 rectangle "회원 정보 수정 실패" {
-  usecase "개인정보 수정 실패" as UC2_1_failure
+  usecase "<UC2_1_failure> 개인정보 수정 실패" as UC2_1_failure
   note right
   개인정보 수정 실패
   - 이름 또는 주소 변경 실패
   - 유효성 검사 오류
   end note
 
-  usecase "연락처 수정 실패" as UC2_2_failure
+  usecase "<UC2_2_failure> 연락처 수정 실패" as UC2_2_failure
   note right
   연락처 수정 실패
   - 연락처 유효성 검증 실패

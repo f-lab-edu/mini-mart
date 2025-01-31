@@ -2,7 +2,7 @@
 actor "관리자" as Admin
 
 rectangle "카테고리 수정 실패" {
-  usecase "카테고리 수정 실패" as UC3_2_failure
+  usecase "<UC3_2_failure> 카테고리 수정 실패" as UC3_2_failure
   note right
   - 유효하지 않은 데이터 입력
   - 데이터베이스 업데이트 실패

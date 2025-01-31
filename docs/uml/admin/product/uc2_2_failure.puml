@@ -2,7 +2,7 @@
 actor "관리자" as Admin
 
 rectangle "상품 수정 실패" {
-  usecase "상품 수정 실패" as UC2_2_failure
+  usecase "<UC2_2_failure> 상품 수정 실패" as UC2_2_failure
   note right
   - 데이터베이스 업데이트 실패
   - 잘못된 입력 값

@@ -2,21 +2,21 @@
 actor "고객" as Customer
 
 rectangle "상품 상세 조회 실패" {
-  usecase "상품 기본 정보 반환 실패" as UC2_1_failure
+  usecase "<UC2_1_failure> 상품 기본 정보 반환 실패" as UC2_1_failure
   note right
   상품 기본 정보 반환 실패:
   - 상품 정보 누락
   - 요청한 상품 없음
   end note
 
-  usecase "상품 옵션 및 재고 정보 표시 실패" as UC2_2_failure
+  usecase "<UC2_2_failure> 상품 옵션 및 재고 정보 표시 실패" as UC2_2_failure
   note right
   상품 옵션 및 재고 정보 표시 실패:
   - 재고 부족
   - 옵션 데이터 누락
   end note
 
-  usecase "옵션별 재고 데이터 조회 실패" as UC2_3_failure
+  usecase "<UC2_3_failure> 옵션별 재고 데이터 조회 실패" as UC2_3_failure
   note right
   옵션별 재고 데이터 조회 실패:
   - 데이터 조회 실패

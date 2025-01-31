@@ -2,14 +2,14 @@
 actor "고객" as Customer
 
 rectangle "장바구니 관리" {
-  usecase "장바구니 담기" as UC1
+  usecase "<UC1> 장바구니 담기" as UC1
   note right of UC1
   장바구니 담기:
   - 상품과 옵션 선택 후 장바구니에 추가
   - 수량 설정 및 중복 처리 포함
   end note
 
-  usecase "장바구니 조회 및 수정" as UC2
+  usecase "<UC2> 장바구니 조회 및 수정" as UC2
   note right of UC2
   장바구니 조회 및 수정:
   - 현재 담긴 상품 목록을 조회

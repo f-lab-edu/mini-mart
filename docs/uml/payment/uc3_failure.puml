@@ -2,14 +2,14 @@
 actor "고객" as Customer
 
 rectangle "결제 실패 처리" {
-  usecase "결제 롤백 처리 성공" as UC3_1_failure
+  usecase "<UC3_1_failure> 결제 롤백 처리 성공" as UC3_1_failure
   note right
   결제 롤백 처리 성공:
   - 결제 실패 시 주문 데이터 롤백
   - 재고 데이터 복원 완료
   end note
 
-  usecase "결제 실패 알림 전송 성공" as UC3_2_failure
+  usecase "<UC3_2_failure> 결제 실패 알림 전송 성공" as UC3_2_failure
   note right
   결제 실패 알림 전송 성공:
   - 사용자에게 결제 실패 사유 전달

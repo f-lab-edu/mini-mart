@@ -2,20 +2,20 @@
 actor "고객" as Customer
 
 rectangle "로그인 요청 처리 실패" {
-  usecase "이메일 및 비밀번호 입력 실패" as UC1_1_failure
+  usecase "<UC1_1_failure> 이메일 및 비밀번호 입력 실패" as UC1_1_failure
   note right
   이메일 및 비밀번호 입력 실패:
   - 이메일 형식이 잘못됨
   - 비밀번호가 누락됨
   end note
 
-  usecase "사용자 정보 조회 실패" as UC1_2_failure
+  usecase "<UC1_2_failure> 사용자 정보 조회 실패" as UC1_2_failure
   note right
   사용자 정보 조회 실패:
   - 데이터베이스에 사용자가 없음
   end note
 
-  usecase "비밀번호 비교 및 검증 실패" as UC1_3_failure
+  usecase "<UC1_3_failure> 비밀번호 비교 및 검증 실패" as UC1_3_failure
   note right
   비밀번호 비교 및 검증 실패:
   - 입력된 비밀번호가 일치하지 않음

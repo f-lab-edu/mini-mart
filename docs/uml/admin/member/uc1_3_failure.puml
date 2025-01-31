@@ -2,7 +2,7 @@
 actor "관리자" as Admin
 
 rectangle "회원 탈퇴 처리 실패" {
-  usecase "회원 탈퇴 처리 실패" as UC1_3_failure
+  usecase "<UC1_3_failure> 회원 탈퇴 처리 실패" as UC1_3_failure
   note right
   - 탈퇴 요청 중 내부 오류 발생
   - 데이터 보관 정책 위반

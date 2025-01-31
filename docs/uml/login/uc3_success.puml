@@ -2,14 +2,14 @@
 actor "고객" as Customer
 
 rectangle "비밀번호 찾기 성공" {
-  usecase "이메일 인증 성공" as UC3_1_success
+  usecase "<UC3_1_success> 이메일 인증 성공" as UC3_1_success
   note right
   이메일 인증 성공:
   - 인증 코드 입력 완료
   - 인증 시간 내 인증 성공
   end note
 
-  usecase "비밀번호 재설정 성공" as UC3_2_success
+  usecase "<UC3_2_success> 비밀번호 재설정 성공" as UC3_2_success
   note right
   비밀번호 재설정 성공:
   - 새로운 비밀번호 암호화 및 저장

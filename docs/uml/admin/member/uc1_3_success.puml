@@ -2,7 +2,7 @@
 actor "관리자" as Admin
 
 rectangle "회원 탈퇴 처리 성공" {
-  usecase "회원 탈퇴 처리 성공" as UC1_3_success
+  usecase "<UC1_3_success> 회원 탈퇴 처리 성공" as UC1_3_success
   note right
   - 요청된 회원의 탈퇴 승인 완료
   - 데이터 보관 정책 준수

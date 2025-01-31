@@ -2,7 +2,7 @@
 actor "고객" as Customer
 
 rectangle "회원 가입 성공" {
-  usecase "계정 정보 등록 성공" as UC1_1_success
+  usecase "<UC1_1_success> 계정 정보 등록 성공" as UC1_1_success
   note right
   계정 정보 등록 성공
   - 이름, 주소, 연락처가 유효함
@@ -10,14 +10,14 @@ rectangle "회원 가입 성공" {
   - 입력 값이 모두 정확함
   end note
 
-  usecase "이메일 인증 성공" as UC1_2_success
+  usecase "<UC1_2_success> 이메일 인증 성공" as UC1_2_success
   note right
   이메일 인증 성공
   - 인증 코드 입력 완료
   - 인증 시간 내 입력
   end note
 
-  usecase "비밀번호 생성 성공" as UC1_3_success
+  usecase "<UC1_3_success> 비밀번호 생성 성공" as UC1_3_success
   note right
   비밀번호 생성 성공
   - 복잡도 규칙 충족

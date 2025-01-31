@@ -2,7 +2,7 @@
 actor "관리자" as Admin
 
 rectangle "상품 등록 성공" {
-  usecase "상품 등록 성공" as UC2_1_success
+  usecase "<UC2_1_success> 상품 등록 성공" as UC2_1_success
   note right
   - 입력된 상품 데이터 저장 완료
   - 이미지 업로드 성공

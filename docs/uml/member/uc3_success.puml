@@ -2,14 +2,14 @@
 actor "고객" as Customer
 
 rectangle "회원 탈퇴 성공" {
-  usecase "탈퇴 요청 성공" as UC3_1_success
+  usecase "<UC3_1_success> 탈퇴 요청 성공" as UC3_1_success
   note right
   탈퇴 요청 성공
   - 탈퇴 사유 입력 (선택)
   - 요청 기록 저장
   end note
 
-  usecase "탈퇴 처리 성공" as UC3_2_success
+  usecase "<UC3_2_success> 탈퇴 처리 성공" as UC3_2_success
   note right
   탈퇴 처리 성공
   - 데이터 보관 정책 준수

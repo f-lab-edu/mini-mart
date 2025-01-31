@@ -2,14 +2,14 @@
 actor "고객" as Customer
 
 rectangle "상품 검색 실패" {
-  usecase "태그 선택 실패" as UC1_1_failure
+  usecase "<UC1_1_failure> 태그 선택 실패" as UC1_1_failure
   note right
   태그 선택 실패:
   - 태그 입력 값 누락
   - 유효하지 않은 태그 입력
   end note
 
-  usecase "카테고리별 필터 적용 실패" as UC1_2_failure
+  usecase "<UC1_2_failure> 카테고리별 필터 적용 실패" as UC1_2_failure
   note right
   카테고리별 필터 적용 실패:
   - 필터 조건 미적용

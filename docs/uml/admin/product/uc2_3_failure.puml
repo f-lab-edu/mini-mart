@@ -2,7 +2,7 @@
 actor "관리자" as Admin
 
 rectangle "상품 삭제 실패" {
-  usecase "상품 삭제 실패" as UC2_3_failure
+  usecase "<UC2_3_failure> 상품 삭제 실패" as UC2_3_failure
   note right
   - 삭제 요청 처리 중 오류 발생
   - 복구 불가능한 삭제 처리 시도

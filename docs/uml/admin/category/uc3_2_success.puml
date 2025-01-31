@@ -2,7 +2,7 @@
 actor "관리자" as Admin
 
 rectangle "카테고리 수정 성공" {
-  usecase "카테고리 수정 성공" as UC3_2_success
+  usecase "<UC3_2_success> 카테고리 수정 성공" as UC3_2_success
   note right
   - 기존 카테고리 정보 변경 성공
   end note

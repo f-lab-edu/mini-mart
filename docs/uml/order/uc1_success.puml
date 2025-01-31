@@ -2,14 +2,14 @@
 actor "고객" as Customer
 
 rectangle "주문 생성 성공" {
-  usecase "주문 데이터 검증 성공" as UC1_1_success
+  usecase "<UC1_1_success> 주문 데이터 검증 성공" as UC1_1_success
   note right
   주문 데이터 검증 성공:
   - 장바구니 데이터 검증 완료
   - 주문 가능 상태 확인
   end note
 
-  usecase "주문 초기화 성공" as UC1_2_success
+  usecase "<UC1_2_success> 주문 초기화 성공" as UC1_2_success
   note right
   주문 초기화 성공:
   - 초기 주문 데이터 생성 완료

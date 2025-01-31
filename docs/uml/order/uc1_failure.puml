@@ -2,14 +2,14 @@
 actor "고객" as Customer
 
 rectangle "주문 생성 실패" {
-  usecase "주문 데이터 검증 실패" as UC1_1_failure
+  usecase "<UC1_1_failure> 주문 데이터 검증 실패" as UC1_1_failure
   note right
   주문 데이터 검증 실패:
   - 장바구니 데이터가 유효하지 않음
   - 재고 부족
   end note
 
-  usecase "주문 초기화 실패" as UC1_2_failure
+  usecase "<UC1_2_failure> 주문 초기화 실패" as UC1_2_failure
   note right
   주문 초기화 실패:
   - 초기 주문 데이터 생성 중 오류 발생

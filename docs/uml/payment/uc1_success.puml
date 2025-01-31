@@ -2,14 +2,14 @@
 actor "고객" as Customer
 
 rectangle "결제 요청 처리 성공" {
-  usecase "결제 정보 유효성 검증 성공" as UC1_1_success
+  usecase "<UC1_1_success> 결제 정보 유효성 검증 성공" as UC1_1_success
   note right
   결제 정보 유효성 검증 성공:
   - 카드 정보 또는 결제 수단 유효
   - 결제 요청 데이터 검증 완료
   end note
 
-  usecase "PG 호출 성공" as UC1_2_success
+  usecase "<UC1_2_success> PG 호출 성공" as UC1_2_success
   note right
   PG 호출 성공:
   - PG(Payment Gateway)와의 통신 성공

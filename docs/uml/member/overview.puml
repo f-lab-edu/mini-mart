@@ -2,21 +2,21 @@
 actor "고객" as Customer
 
 rectangle "회원 관리" {
-  usecase "회원 가입" as UC1
+  usecase "<UC1> 회원 가입" as UC1
   note right of UC1
   회원 가입:
   - 새로운 사용자가 시스템에 등록
   - 계정 정보 입력, 이메일 인증, 비밀번호 생성 과정 포함
   end note
 
-  usecase "회원 정보 수정" as UC2
+  usecase "<UC2> 회원 정보 수정" as UC2
   note right of UC2
   회원 정보 수정:
   - 기존 사용자가 개인정보 또는 연락처를 수정
   - 변경된 정보는 유효성 검증 후 저장
   end note
 
-  usecase "회원 탈퇴" as UC3
+  usecase "<UC3> 회원 탈퇴" as UC3
   note right of UC3
   회원 탈퇴:
   - 사용자가 자신의 계정을 삭제 요청
