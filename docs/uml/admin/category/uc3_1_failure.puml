@@ -1,0 +1,13 @@
+@startuml
+actor "관리자" as Admin
+
+rectangle "카테고리 추가 실패" {
+  usecase "<UC3_1_failure> 카테고리 추가 실패" as UC3_1_failure
+  note right
+  - 중복된 카테고리 이름
+  - 데이터 저장 오류
+  end note
+}
+
+Admin --> UC3_1_failure
+@enduml

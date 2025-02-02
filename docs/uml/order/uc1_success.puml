@@ -1,0 +1,22 @@
+@startuml
+actor "고객" as Customer
+
+rectangle "주문 생성 성공" {
+  usecase "<UC1_1_success> 주문 데이터 검증 성공" as UC1_1_success
+  note right
+  주문 데이터 검증 성공:
+  - 장바구니 데이터 검증 완료
+  - 주문 가능 상태 확인
+  end note
+
+  usecase "<UC1_2_success> 주문 초기화 성공" as UC1_2_success
+  note right
+  주문 초기화 성공:
+  - 초기 주문 데이터 생성 완료
+  - 주문 ID 발급
+  end note
+}
+
+Customer --> UC1_1_success
+Customer --> UC1_2_success
+@enduml

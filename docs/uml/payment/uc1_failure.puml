@@ -1,0 +1,22 @@
+@startuml
+actor "고객" as Customer
+
+rectangle "결제 요청 처리 실패" {
+  usecase "<UC1_1_failure> 결제 정보 유효성 검증 실패" as UC1_1_failure
+  note right
+  결제 정보 유효성 검증 실패:
+  - 카드 정보가 잘못됨
+  - 결제 수단 유효하지 않음
+  end note
+
+  usecase "<UC1_2_failure> PG 호출 실패" as UC1_2_failure
+  note right
+  PG 호출 실패:
+  - PG(Payment Gateway) 서버 오류
+  - 네트워크 문제 발생
+  end note
+}
+
+Customer --> UC1_1_failure
+Customer --> UC1_2_failure
+@enduml

@@ -1,0 +1,23 @@
+@startuml
+actor "고객" as Customer
+
+rectangle "상품 조회 및 검색" {
+  usecase "<UC1> 상품 검색" as UC1
+  note right of UC1
+  상품 검색:
+  - 사용자가 태그 또는 카테고리로 상품 검색
+  - 필터 조건 적용 및 결과 반환 포함
+  end note
+
+  usecase "<UC2> 상품 상세 조회" as UC2
+  note right of UC2
+  상품 상세 조회:
+  - 특정 상품의 상세 정보를 확인
+  - 기본 정보, 옵션, 재고 상태 포함
+  end note
+}
+
+Customer --> UC1
+Customer --> UC2
+
+@enduml

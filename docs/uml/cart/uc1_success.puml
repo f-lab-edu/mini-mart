@@ -1,0 +1,29 @@
+@startuml
+actor "고객" as Customer
+
+rectangle "장바구니 담기 성공" {
+  usecase "<UC1_1_success> 상품 선택 및 추가 성공" as UC1_1_success
+  note right
+  상품 선택 및 추가 성공:
+  - 상품과 옵션 선택 완료
+  - 기본 수량 설정 또는 입력 값 유효
+  end note
+
+  usecase "<UC1_2_success> 수량 선택 성공" as UC1_2_success
+  note right
+  수량 선택 성공:
+  - 입력된 수량이 유효함
+  - 수량 정상 반영
+  end note
+
+  usecase "<UC1_3_success> 동일 상품 중복 추가 처리 성공" as UC1_3_success
+  note right
+  동일 상품 중복 추가 처리 성공:
+  - 중복 상품 수량 증가 처리 완료
+  end note
+}
+
+Customer --> UC1_1_success
+Customer --> UC1_2_success
+Customer --> UC1_3_success
+@enduml

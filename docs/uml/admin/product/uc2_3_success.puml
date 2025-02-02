@@ -1,0 +1,12 @@
+@startuml
+actor "관리자" as Admin
+
+rectangle "상품 삭제 성공" {
+  usecase "<UC2_3_success> 상품 삭제 성공" as UC2_3_success
+  note right
+  - 특정 상품 soft delete 처리 완료
+  end note
+}
+
+Admin --> UC2_3_success
+@enduml

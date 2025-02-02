@@ -1,0 +1,23 @@
+@startuml
+actor "고객" as Customer
+
+rectangle "주문 관리" {
+  usecase "<UC1> 주문 생성" as UC1
+  note right of UC1
+  주문 생성:
+  - 사용자가 장바구니 상품으로 주문 요청
+  - 주문 데이터 검증 및 초기화 포함
+  end note
+
+  usecase "<UC2> 주문 상태 관리" as UC2
+  note right of UC2
+  주문 상태 관리:
+  - 주문의 상태를 생성, 처리, 완료, 취소로 변경
+  - 상태 변경에 따른 알림 발송 포함
+  end note
+}
+
+Customer --> UC1
+Customer --> UC2
+
+@enduml

@@ -1,0 +1,13 @@
+@startuml
+actor "관리자" as Admin
+
+rectangle "회원 목록 조회 성공" {
+  usecase "<UC1_1_success> 회원 목록 조회 성공" as UC1_1_success
+  note right
+  - 필터 조건 적용 후 회원 목록 반환
+  - 예: 이메일, 가입 날짜, 상태별 조회
+  end note
+}
+
+Admin --> UC1_1_success
+@enduml

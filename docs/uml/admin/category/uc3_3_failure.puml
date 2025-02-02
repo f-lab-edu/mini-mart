@@ -1,0 +1,13 @@
+@startuml
+actor "관리자" as Admin
+
+rectangle "카테고리 삭제 실패" {
+  usecase "<UC3_3_failure> 카테고리 삭제 실패" as UC3_3_failure
+  note right
+  - 삭제 요청 중 오류 발생
+  - 기타 카테고리로 이동 실패
+  end note
+}
+
+Admin --> UC3_3_failure
+@enduml

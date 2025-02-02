@@ -1,0 +1,29 @@
+@startuml
+actor "고객" as Customer
+
+rectangle "상품 상세 조회 성공" {
+  usecase "<UC2_1_success> 상품 기본 정보 반환 성공" as UC2_1_success
+  note right
+  상품 기본 정보 반환 성공:
+  - 상품 이미지, 설명, 가격 정보 반환
+  - 기본 정보 조회 완료
+  end note
+
+  usecase "<UC2_2_success> 상품 옵션 및 재고 정보 표시 성공" as UC2_2_success
+  note right
+  상품 옵션 및 재고 정보 표시 성공:
+  - 옵션별 재고 데이터 표시 완료
+  - 재고 충분
+  end note
+
+  usecase "<UC2_3_success> 옵션별 재고 데이터 조회 성공" as UC2_3_success
+  note right
+  옵션별 재고 데이터 조회 성공:
+  - 데이터 조회 정상 완료
+  end note
+}
+
+Customer --> UC2_1_success
+Customer --> UC2_2_success
+Customer --> UC2_3_success
+@enduml

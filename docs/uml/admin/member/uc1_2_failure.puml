@@ -1,0 +1,13 @@
+startuml
+actor "관리자" as Admin
+
+rectangle "회원 상세 정보 조회 실패" {
+  usecase "<UC1_2_failure> 회원 상세 정보 조회 실패" as UC1_2_failure
+  note right
+  - 요청된 회원 데이터가 없음
+  - 권한 부족
+  end note
+}
+
+Admin --> UC1_2_failure
+@enduml

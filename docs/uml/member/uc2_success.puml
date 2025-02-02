@@ -1,0 +1,22 @@
+@startuml
+actor "고객" as Customer
+
+rectangle "회원 정보 수정 성공" {
+  usecase "<UC2_1_success> 개인정보 수정 성공" as UC2_1_success
+  note right
+  개인정보 수정 성공
+  - 이름 또는 주소 변경 완료
+  - 변경 사항 저장
+  end note
+
+  usecase "<UC2_2_success> 연락처 수정 성공" as UC2_2_success
+  note right
+  연락처 수정 성공
+  - 연락처 유효성 검증 완료
+  - 새로운 연락처 저장
+  end note
+}
+
+Customer --> UC2_1_success
+Customer --> UC2_2_success
+@enduml

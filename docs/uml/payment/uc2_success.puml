@@ -1,0 +1,22 @@
+@startuml
+actor "고객" as Customer
+
+rectangle "결제 성공 처리" {
+  usecase "<UC2_1_success> 주문 상태 업데이트 성공" as UC2_1_success
+  note right
+  주문 상태 업데이트 성공:
+  - 결제 완료 상태로 변경
+  - 주문 데이터 저장 성공
+  end note
+
+  usecase "<UC2_2_success> 결제 성공 알림 전송 성공" as UC2_2_success
+  note right
+  결제 성공 알림 전송 성공:
+  - 사용자에게 결제 완료 알림 발송
+  - 알림 전송 처리 완료
+  end note
+}
+
+Customer --> UC2_1_success
+Customer --> UC2_2_success
+@enduml
