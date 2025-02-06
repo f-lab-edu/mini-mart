@@ -1,7 +1,6 @@
 package com.example.minimart.order.service.domain;
 
 import com.example.minimart.order.repository.entity.OrderStatus;
-import com.example.minimart.order.service.domain.Order;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +22,7 @@ class OrderTest {
         Order order = Order.create(customerId, totalPrice, Collections.emptyList());
 
         // then
-        assertNull(order.getId());
+        assertNull(order.getOrderId());
         assertEquals(customerId, order.getCustomerId());
         assertEquals(totalPrice, order.getTotalPrice());
         assertEquals(OrderStatus.PENDING, order.getStatus());

@@ -2,9 +2,13 @@ package com.example.minimart.order.service;
 
 import com.example.minimart.order.controller.dto.request.CreateOrderItemRequest;
 import com.example.minimart.order.controller.dto.request.CreateOrderRequest;
+import com.example.minimart.order.repository.OrderItemJpaRepository;
+import com.example.minimart.order.repository.OrderJpaRepository;
+import com.example.minimart.order.repository.entity.OrderEntity;
+import com.example.minimart.order.repository.entity.OrderItemEntity;
+import com.example.minimart.order.repository.entity.OrderStatus;
 import com.example.minimart.order.service.domain.Order;
 import com.example.minimart.order.service.domain.OrderItem;
-import com.example.minimart.order.service.domain.OrderRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,15 +19,21 @@ import java.util.stream.Collectors;
 @Service
 public class OrderService {
 
-    private OrderRepository orderRepository;
+    private final OrderJpaRepository orderJpaRepository;
+    private final OrderItemJpaRepository orderItemJpaRepository;
 
-    public OrderService(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
+    public OrderService(OrderJpaRepository orderJpaRepository, OrderItemJpaRepository orderItemJpaRepository) {
+        this.orderJpaRepository = orderJpaRepository;
+        this.orderItemJpaRepository = orderItemJpaRepository;
     }
 
-    public Order getOrder(Long id) {
-        return orderRepository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("주문을 찾을 수 없습니다. 주문 ID: " + id));
+    public Order getOrder(Long orderId) {
+        OrderEntity orderEntity = orderJpaRepository.findById(orderId)
+            .orElseThrow(() -> new IllegalArgumentException("주문을 찾을 수 없습니다. 주문 ID: " + orderId));
+
+        List<OrderItemEntity> orderItemEntities = orderItemJpaRepository.findByOrderId(orderId);
+
+        return toOrderDomain(orderEntity, orderItemEntities);
     }
 
     @Transactional
@@ -33,32 +43,40 @@ public class OrderService {
             validateTotalPrice(request.getTotalPrice());
             validateOrderItems(request.getItems());
 
-            // Request DTO -> OrderItem Domain
-            List<OrderItem> orderItems = request.getItems().stream()
+            // Order DTO -> Entity
+            OrderEntity orderEntity = new OrderEntity(
+                request.getCustomerId(),
+                request.getTotalPrice(),
+                OrderStatus.PENDING
+            );
+            // Order Save
+            OrderEntity savedOrderEntity = orderJpaRepository.save(orderEntity);
+            Long orderId = savedOrderEntity.getId();
+
+            // OrderItem DTO -> Entity
+            List<OrderItemEntity> orderItemEntities = request.getItems().stream()
                 .map(item -> {
                     validateProductId(item.getProductId());
                     validateProductName(item.getProductName());
                     validateUnitPrice(item.getPrice());
                     validateQuantity(item.getQuantity());
 
-                    return OrderItem.create(
+                    return new OrderItemEntity(
+                        orderId,
                         item.getProductId(),
                         item.getProductName(),
                         item.getOption(),
                         item.getPrice(),
-                        item.getQuantity()
+                        item.getQuantity(),
+                        item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity()))
                     );
                 })
                 .collect(Collectors.toList());
+            // OrderItem Save
+            orderItemJpaRepository.saveAll(orderItemEntities);
 
-            // Request DTO -> Order Domain
-            Order order = Order.create(
-                request.getCustomerId(),
-                request.getTotalPrice(),
-                orderItems
-            );
-
-            return orderRepository.save(order);
+            // Entity -> Domain
+            return toOrderDomain(savedOrderEntity, orderItemEntities);
         } catch (IllegalArgumentException e) {
             throw e;
         } catch (Exception e) {
@@ -67,7 +85,41 @@ public class OrderService {
     }
 
     public List<Order> listOrders() {
-        return orderRepository.findAll();
+        List<OrderEntity> orderEntities = orderJpaRepository.findAll();
+
+        return orderEntities.stream()
+            .map(order -> {
+                List<OrderItemEntity> orderItems = orderItemJpaRepository.findByOrderId(order.getId());
+
+                return toOrderDomain(order, orderItems);
+            })
+            .collect(Collectors.toList());
+    }
+
+    private Order toOrderDomain(OrderEntity orderEntity, List<OrderItemEntity> orderItemEntities) {
+        List<OrderItem> orderItems = orderItemEntities.stream()
+            .map(this::toOrderItemDomain)
+            .collect(Collectors.toList());
+
+        return new Order(
+            orderEntity.getId(),
+            orderEntity.getCustomerId(),
+            orderEntity.getTotalPrice(),
+            orderEntity.getStatus(),
+            orderEntity.getCreatedAt(),
+            orderItems
+        );
+    }
+
+    private OrderItem toOrderItemDomain(OrderItemEntity itemEntity) {
+        return new OrderItem(
+            itemEntity.getId(),
+            itemEntity.getProductId(),
+            itemEntity.getProductName(),
+            itemEntity.getProductOption(),
+            itemEntity.getUnitPrice(),
+            itemEntity.getQuantity()
+        );
     }
 
     private void validateCustomerId(Long customerId) {

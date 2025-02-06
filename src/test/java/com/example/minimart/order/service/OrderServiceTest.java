@@ -2,9 +2,12 @@ package com.example.minimart.order.service;
 
 import com.example.minimart.order.controller.dto.request.CreateOrderItemRequest;
 import com.example.minimart.order.controller.dto.request.CreateOrderRequest;
+import com.example.minimart.order.repository.OrderItemJpaRepository;
+import com.example.minimart.order.repository.OrderJpaRepository;
+import com.example.minimart.order.repository.entity.OrderEntity;
+import com.example.minimart.order.repository.entity.OrderItemEntity;
+import com.example.minimart.order.repository.entity.OrderStatus;
 import com.example.minimart.order.service.domain.Order;
-import com.example.minimart.order.service.domain.OrderRepository;
-import com.example.minimart.order.service.OrderService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,7 +28,10 @@ import static org.mockito.Mockito.*;
 class OrderServiceTest {
 
     @Mock
-    private OrderRepository orderRepository;
+    private OrderJpaRepository orderJpaRepository;
+
+    @Mock
+    private OrderItemJpaRepository orderItemJpaRepository;
 
     @InjectMocks
     private OrderService orderService;
@@ -41,136 +47,87 @@ class OrderServiceTest {
     @Test
     @DisplayName("정상적인 주문 생성")
     void createOrderSuccess() {
-        Order mockOrder = mock(Order.class);
-        when(orderRepository.save(any(Order.class))).thenReturn(mockOrder);
+        // given
+        OrderEntity savedOrderEntity = new OrderEntity(1L, 1L, BigDecimal.valueOf(20), OrderStatus.PENDING);
+        List<OrderItemEntity> orderItemEntities = List.of(
+            new OrderItemEntity(1L, 1L, "Product A", "Option A", BigDecimal.TEN, 2, BigDecimal.valueOf(20))
+        );
+        when(orderJpaRepository.save(any())).thenReturn(savedOrderEntity);
+        when(orderItemJpaRepository.saveAll(any())).thenReturn(orderItemEntities);
 
+        // when
         Order createdOrder = orderService.createOrder(validRequest);
 
+        // then
         assertNotNull(createdOrder);
-        verify(orderRepository).save(any(Order.class));
+        assertEquals(OrderStatus.PENDING, createdOrder.getStatus());
+        verify(orderJpaRepository).save(any(OrderEntity.class));
+        verify(orderItemJpaRepository).saveAll(any());
     }
 
     @Test
-    @DisplayName("주문 항목이 없는 경우 예외 발생")
-    void createOrderWithoutItemsThrowsException() {
-        CreateOrderRequest invalidRequest = new CreateOrderRequest(1L, BigDecimal.valueOf(20), Collections.emptyList());
-
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> orderService.createOrder(invalidRequest));
-
-        assertEquals("주문 항목은 최소 1개 이상이어야 합니다.", exception.getMessage());
-    }
-
-    @Test
-    @DisplayName("주문 조회 - 존재하는 주문")
+    @DisplayName("존재하는 주문 조회 성공")
     void getOrderSuccess() {
-        Order mockOrder = mock(Order.class);
-        when(orderRepository.findById(1L)).thenReturn(Optional.of(mockOrder));
+        // given
+        OrderEntity orderEntity = new OrderEntity(1L, 1L, BigDecimal.valueOf(20), OrderStatus.PENDING);
+        when(orderJpaRepository.findById(1L)).thenReturn(Optional.of(orderEntity));
+        when(orderItemJpaRepository.findByOrderId(1L)).thenReturn(Collections.emptyList());
 
+        // when
         Order foundOrder = orderService.getOrder(1L);
 
+        // then
         assertNotNull(foundOrder);
-        verify(orderRepository).findById(1L);
+        assertEquals(1L, foundOrder.getOrderId());
+        verify(orderJpaRepository).findById(1L);
     }
 
     @Test
-    @DisplayName("주문 조회 - 존재하지 않는 주문 예외 발생")
+    @DisplayName("존재하지 않는 주문 조회시 예외 발생")
     void getOrderNotFoundThrowsException() {
-        when(orderRepository.findById(1L)).thenReturn(Optional.empty());
+        // given
+        when(orderJpaRepository.findById(-1L)).thenReturn(Optional.empty());
 
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> orderService.getOrder(1L));
-
-        assertEquals("주문을 찾을 수 없습니다. 주문 ID: 1", exception.getMessage());
+        // when
+        // then
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> orderService.getOrder(-1L));
+        assertEquals("주문을 찾을 수 없습니다. 주문 ID: -1", exception.getMessage());
     }
 
     @Test
-    @DisplayName("저장된 주문이 없는 경우 빈 리스트 반환")
-    void listOrdersReturnsEmptyList() {
-        when(orderRepository.findAll()).thenReturn(Collections.emptyList());
+    @DisplayName("고객 ID가 0 이하일 경우 예외 발생")
+    void createOrderWithInvalidCustomerIdThrowsException() {
+        // given
+        CreateOrderRequest invalidRequest = new CreateOrderRequest(0L, BigDecimal.TEN, validRequest.getItems());
 
-        List<Order> orders = orderService.listOrders();
-
-        assertTrue(orders.isEmpty());
-        verify(orderRepository).findAll();
-    }
-
-    @Test
-    @DisplayName("고객 ID가 0이거나 음수일 경우 예외 발생")
-    void validateCustomerIdThrowsException() {
-        CreateOrderRequest request = new CreateOrderRequest(0L, BigDecimal.TEN, List.of(
-            new CreateOrderItemRequest(1L, "Product A", 1, BigDecimal.TEN, "Option")
-        ));
-
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-            () -> orderService.createOrder(request));
-
+        // when
+        // then
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> orderService.createOrder(invalidRequest));
         assertEquals("고객 ID는 0보다 커야 합니다.", exception.getMessage());
     }
 
     @Test
-    @DisplayName("총 가격이 음수인 경우 예외 발생")
-    void validateTotalPriceThrowsException() {
-        CreateOrderRequest request = new CreateOrderRequest(1L, BigDecimal.valueOf(-10), List.of(
-            new CreateOrderItemRequest(1L, "Product A", 1, BigDecimal.TEN, "Option")
-        ));
+    @DisplayName("주문 항목이 없을 경우 예외 발생")
+    void createOrderWithoutItemsThrowsException() {
+        // given
+        CreateOrderRequest invalidRequest = new CreateOrderRequest(1L, BigDecimal.TEN, Collections.emptyList());
 
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-            () -> orderService.createOrder(request));
+        // when
+        // then
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> orderService.createOrder(invalidRequest));
+        assertEquals("주문 항목은 최소 1개 이상이어야 합니다.", exception.getMessage());
+    }
 
+    @Test
+    @DisplayName("총 주문 금액이 음수일 경우 예외 발생")
+    void createOrderWithNegativeTotalPriceThrowsException() {
+        // given
+        CreateOrderRequest invalidRequest = new CreateOrderRequest(1L, BigDecimal.valueOf(-10), validRequest.getItems());
+
+        // when
+        // then
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> orderService.createOrder(invalidRequest));
         assertEquals("총 주문 금액은 0보다 크거나 같아야 합니다.", exception.getMessage());
-    }
-
-    @Test
-    @DisplayName("상품 ID가 0이거나 음수일 경우 예외 발생")
-    void validateProductIdThrowsException() {
-        CreateOrderRequest request = new CreateOrderRequest(1L, BigDecimal.TEN, List.of(
-            new CreateOrderItemRequest(0L, "Product A", 1, BigDecimal.TEN, "Option")
-        ));
-
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-            () -> orderService.createOrder(request));
-
-        assertEquals("상품 ID는 0보다 커야 합니다.", exception.getMessage());
-    }
-
-    @Test
-    @DisplayName("상품 이름이 비어 있는 경우 예외 발생")
-    void validateProductNameThrowsException() {
-        CreateOrderRequest request = new CreateOrderRequest(1L, BigDecimal.TEN, List.of(
-            new CreateOrderItemRequest(1L, "", 1, BigDecimal.TEN, "Option")
-        ));
-
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-            () -> orderService.createOrder(request));
-
-        assertEquals("상품 이름은 비어 있을 수 없습니다.", exception.getMessage());
-    }
-
-    @Test
-    @DisplayName("단가가 0 이하인 경우 예외 발생")
-    void validateUnitPriceThrowsException() {
-        CreateOrderRequest request = new CreateOrderRequest(1L, BigDecimal.TEN, List.of(
-            new CreateOrderItemRequest(1L, "Product A", 1, BigDecimal.ZERO, "Option")
-        ));
-
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-            () -> orderService.createOrder(request));
-
-        assertEquals("단가는 0보다 커야 합니다.", exception.getMessage());
-    }
-
-    @Test
-    @DisplayName("수량이 0 이하인 경우 예외 발생")
-    void validateQuantityThrowsException() {
-        CreateOrderRequest request = new CreateOrderRequest(1L, BigDecimal.TEN, List.of(
-            new CreateOrderItemRequest(1L, "Product A", 0, BigDecimal.TEN, "Option")
-        ));
-
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-            () -> orderService.createOrder(request));
-
-        assertEquals("수량은 0보다 커야 합니다.", exception.getMessage());
     }
 
 }

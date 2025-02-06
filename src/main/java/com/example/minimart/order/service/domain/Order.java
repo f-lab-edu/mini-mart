@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public class Order {
 
-    private Long id;
+    private Long orderId;
     private Long customerId;
     private BigDecimal totalPrice;
     private OrderStatus status;
@@ -18,14 +18,14 @@ public class Order {
     private List<OrderItem> orderItems;
 
     public Order(
-        Long id,
+        Long orderId,
         Long customerId,
         BigDecimal totalPrice,
         OrderStatus status,
         LocalDateTime createdAt,
         List<OrderItem> orderItems
     ) {
-        this.id = id;
+        this.orderId = orderId;
         this.customerId = customerId;
         this.totalPrice = totalPrice;
         this.status = status;
@@ -48,8 +48,8 @@ public class Order {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public Long getId() {
-        return id;
+    public Long getOrderId() {
+        return orderId;
     }
 
     public Long getCustomerId() {
@@ -82,18 +82,18 @@ public class Order {
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
 
-        return Objects.equals(id, order.id);
+        return Objects.equals(orderId, order.orderId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(orderId);
     }
 
     @Override
     public String toString() {
         return "Order{" +
-            "id=" + id +
+            "id=" + orderId +
             ", customerId=" + customerId +
             ", totalPrice=" + totalPrice +
             ", status=" + status +
