@@ -1,5 +1,6 @@
-package com.example.minimart.order.domain;
+package com.example.minimart.order.service.domain;
 
+import com.example.minimart.order.service.domain.OrderItem;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

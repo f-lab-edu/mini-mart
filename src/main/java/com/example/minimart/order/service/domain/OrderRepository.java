@@ -1,4 +1,4 @@
-package com.example.minimart.order.domain;
+package com.example.minimart.order.service.domain;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,6 +1,7 @@
-package com.example.minimart.order.domain;
+package com.example.minimart.order.service.domain;
 
-import com.example.minimart.order.infra.entity.OrderStatus;
+import com.example.minimart.order.repository.entity.OrderStatus;
+import com.example.minimart.order.service.domain.Order;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

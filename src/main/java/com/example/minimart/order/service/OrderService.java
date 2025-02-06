@@ -1,10 +1,10 @@
-package com.example.minimart.order.application;
+package com.example.minimart.order.service;
 
-import com.example.minimart.api.order.dto.request.CreateOrderItemRequest;
-import com.example.minimart.api.order.dto.request.CreateOrderRequest;
-import com.example.minimart.order.domain.Order;
-import com.example.minimart.order.domain.OrderItem;
-import com.example.minimart.order.domain.OrderRepository;
+import com.example.minimart.order.controller.dto.request.CreateOrderItemRequest;
+import com.example.minimart.order.controller.dto.request.CreateOrderRequest;
+import com.example.minimart.order.service.domain.Order;
+import com.example.minimart.order.service.domain.OrderItem;
+import com.example.minimart.order.service.domain.OrderRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

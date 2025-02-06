@@ -1,86 +1,45 @@
-package com.example.minimart.order.infra.entity;
-
-import jakarta.persistence.*;
+package com.example.minimart.order.service.domain;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Entity
-@Table(name = "order_items")
-public class OrderItemEntity {
+public class OrderItem {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
-    private Long orderId;
-
-    @Column(nullable = false)
     private Long productId;
-
-    @Column(nullable = false, length = 255)
     private String productName;
-
-    @Column(length = 255)
     private String productOption;
-
-    @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal unitPrice;
-
-    @Column(nullable = false)
     private int quantity;
-
-    @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal totalPrice;
 
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-
-    @Column(nullable = false)
-    private LocalDateTime updatedAt;
-
-    @Column(nullable = false)
-    private boolean deleted = false;
-
-    protected OrderItemEntity() {}
-
-    public OrderItemEntity(
-        Long orderId,
+    public OrderItem(
+        Long id,
         Long productId,
         String productName,
         String productOption,
         BigDecimal unitPrice,
-        int quantity,
-        BigDecimal totalPrice
+        int quantity
     ) {
-        this.orderId = orderId;
+        this.id = id;
         this.productId = productId;
         this.productName = productName;
         this.productOption = productOption;
         this.unitPrice = unitPrice;
         this.quantity = quantity;
-        this.totalPrice = totalPrice;
+        this.totalPrice = calculateTotalPrice();
     }
 
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
+    public static OrderItem create(Long productId, String productName, String productOption, BigDecimal unitPrice, int quantity) {
+        return new OrderItem(null, productId, productName, productOption, unitPrice, quantity);
     }
 
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
+    private BigDecimal calculateTotalPrice() {
+        return this.unitPrice.multiply(BigDecimal.valueOf(this.quantity));
     }
 
     public Long getId() {
         return id;
-    }
-
-    public Long getOrderId() {
-        return orderId;
     }
 
     public Long getProductId() {
@@ -111,7 +70,7 @@ public class OrderItemEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OrderItemEntity orderItem = (OrderItemEntity) o;
+        OrderItem orderItem = (OrderItem) o;
 
         return Objects.equals(id, orderItem.id);
     }
@@ -125,14 +84,12 @@ public class OrderItemEntity {
     public String toString() {
         return "OrderItem{" +
             "id=" + id +
-            ", orderId=" + orderId +
             ", productId=" + productId +
             ", productName='" + productName + '\'' +
             ", productOption='" + productOption + '\'' +
             ", unitPrice=" + unitPrice +
             ", quantity=" + quantity +
             ", totalPrice=" + totalPrice +
-            ", deleted=" + deleted +
             '}';
     }
 

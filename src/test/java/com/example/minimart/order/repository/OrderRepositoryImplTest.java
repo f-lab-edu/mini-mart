@@ -1,10 +1,10 @@
-package com.example.minimart.order.infra;
+package com.example.minimart.order.repository;
 
-import com.example.minimart.order.domain.Order;
-import com.example.minimart.order.domain.OrderItem;
-import com.example.minimart.order.infra.entity.OrderEntity;
-import com.example.minimart.order.infra.entity.OrderItemEntity;
-import com.example.minimart.order.infra.entity.OrderStatus;
+import com.example.minimart.order.service.domain.Order;
+import com.example.minimart.order.service.domain.OrderItem;
+import com.example.minimart.order.repository.entity.OrderEntity;
+import com.example.minimart.order.repository.entity.OrderItemEntity;
+import com.example.minimart.order.repository.entity.OrderStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,9 +1,10 @@
-package com.example.minimart.order.application;
+package com.example.minimart.order.service;
 
-import com.example.minimart.api.order.dto.request.CreateOrderItemRequest;
-import com.example.minimart.api.order.dto.request.CreateOrderRequest;
-import com.example.minimart.order.domain.Order;
-import com.example.minimart.order.domain.OrderRepository;
+import com.example.minimart.order.controller.dto.request.CreateOrderItemRequest;
+import com.example.minimart.order.controller.dto.request.CreateOrderRequest;
+import com.example.minimart.order.service.domain.Order;
+import com.example.minimart.order.service.domain.OrderRepository;
+import com.example.minimart.order.service.OrderService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
