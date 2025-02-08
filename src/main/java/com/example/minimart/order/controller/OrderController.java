@@ -1,8 +1,8 @@
 package com.example.minimart.order.controller;
 
 import com.example.minimart.order.controller.dto.request.CreateOrderRequest;
-import com.example.minimart.order.repository.entity.Order;
 import com.example.minimart.order.service.OrderService;
+import com.example.minimart.order.service.domain.Order;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -33,8 +33,8 @@ public class OrderController {
 
     @PostMapping
     @Operation(summary = "주문 생성", description = "새로운 주문을 생성합니다.")
-    public void createOrder(@RequestBody CreateOrderRequest request) {
-        orderService.createOrder(request);
+    public Order createOrder(@RequestBody CreateOrderRequest request) {
+        return orderService.createOrder(request);
     }
 
     @GetMapping
